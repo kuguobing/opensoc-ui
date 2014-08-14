@@ -1,4 +1,121 @@
 <div ng-controller='pcap' ng-init="init()">
+
+  <style>
+    .table-doc-table {
+      margin-left: 0px !important;
+      overflow-y: auto;
+    }
+    .table-sidebar {
+      width: 200px;
+      display: table-cell;
+      padding-right: 10px;
+    }
+    .table-main {
+      width: 100%;
+      display: table-cell;
+    }
+    .table-container {
+      display: table;
+      height: 100px;
+      width: 100%;
+      table-layout: fixed;
+    }
+    .table-fieldname {
+      white-space: nowrap;
+    }
+
+    .table-fieldname a {
+      word-wrap:break-word;
+      white-space: normal;
+    }
+
+    .table-details {
+      table-layout: fixed;
+    }
+
+    .table-details-field {
+      width: 200px;
+    }
+
+    .table-details-action {
+      width: 60px;
+      text-align: center;
+    }
+
+    .table-details-value {
+    }
+
+    .table-field-value {
+      white-space: pre-wrap;
+    }
+  </style>
+
+<!-- PCAP Table -->
+<div class="table-container">
+  <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
+    <!-- <thead ng-show="panel.header"> -->
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Info</th>
+        <th>Size</th>
+        <th>Position</th>
+      </tr>
+    </thead>
+      <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'">
+          <tr ng-click="toggle_details(event)" class="pointer">
+            <td bo-text="event.$.name"></td>
+            <td bo-text="event.$.showname"></td>
+            <td bo-text="event.$.size"></td>
+            <td bo-text="event.$.pos"></td>
+          </tr>
+      </tbody>
+  </table>
+
+  <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
+    <thead ng-show="panel.header">
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+    </thead>
+    <tbody>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+    </tbody>
+    </table>
+
+    <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
+    <thead ng-show="panel.header">
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+    </thead>
+    <tbody>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+    </tbody>
+    </table>
+
+</div>
+
   <!--<p ng-style="panel.style" ng-bind-html-unsafe="panel.content | striphtml | newlines"></p>-->
   <markdown ng-show="ready && panel.mode == 'markdown'">
     {{panel.content}}
