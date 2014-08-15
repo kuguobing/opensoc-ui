@@ -441,6 +441,19 @@
           "locked": false,
           "title": "Alerts IP Destination",
           "field": "@fields.source_longitude"
+        },
+        {
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "pcap",
+          "loadingEditor": false,
+          "mode": "markdown",
+          "content": "",
+          "style": {
+            "font-size": "9px"
+          },
+          "title": "asfd"
         }
       ],
       "notice": false
