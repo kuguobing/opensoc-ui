@@ -79,34 +79,26 @@
             <td bo-text="event.$.pos"></td>
           </tr>
           <tr ng-if="event.details">
-            <td ng-click="highlight_text(event)">details</td>
-            <!-- <tr ng-repeat="value in event.field">
-                <td bo-text=""></td>
-            </tr> -->
+            <td colspan="4"><!-- Change to colspan of panel.fields.length -->
+                <span>Packet Details</span>
+                <table>
+                    <thead>
+                        <th>acronym</th>
+                        <th>name</th>
+                        <th>size</th>
+                        <th>position</th>
+                    </thead>
+                    <tr ng-repeat="val in event.field">
+                        <td ng-click="highlight_text()">{{val.$.name}}</td>
+                        <td>{{val.$.showname}}</td>
+                        <td>{{val.$.size}}</td>
+                        <td>{{val.$.pos}}</td>
+                    </tr>
+                </table>
+            </td>
           </tr>
       </tbody>
   </table>
-
-    <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
-    <thead>
-        <th>Test</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-    </thead>
-    <tbody>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-    </tbody>
-    </table>
 
     <p class="pcap-raw">
         {{ hexData }}
