@@ -48,6 +48,15 @@
     .table-field-value {
       white-space: pre-wrap;
     }
+
+    span.hilite {
+        background: yellow;
+    }
+
+    .pcap-raw {
+        background: #FCFCFC;
+        color: #5F5F5F;
+    }
   </style>
 
 <!-- PCAP Table -->
@@ -69,12 +78,18 @@
             <td bo-text="event.$.size"></td>
             <td bo-text="event.$.pos"></td>
           </tr>
+          <tr ng-if="event.details">
+            <td ng-click="highlight_text(event)">details</td>
+            <!-- <tr ng-repeat="value in event.field">
+                <td bo-text=""></td>
+            </tr> -->
+          </tr>
       </tbody>
   </table>
 
-  <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
-    <thead ng-show="panel.header">
-        <th>...</th>
+    <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
+    <thead>
+        <th>Test</th>
         <th>...</th>
         <th>...</th>
         <th>...</th>
@@ -93,26 +108,23 @@
     </tbody>
     </table>
 
-    <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
-    <thead ng-show="panel.header">
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-    </thead>
-    <tbody>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-    </tbody>
-    </table>
+    <p class="pcap-raw">
+        {{ hexData }}
+        d4c3 b2a1 0200 0400 0000 0000 0000 0000
+        0000 0100 0100 0000 af21 0f51 4fff 0700
+        3600 0000 3600 0000 0100 5e00 0016 000c
+        29af 9cdc 0800 4600 0028 002b 0000 0102
+        9afb ac10 fd82 e000 0016 9404 0000 2200
+        eb03 0000 0001 0300 0000 efff fffa af21
+        0f51 a411 0800 3600 0000 3600 0000 0100
+        5e00 0016 000c 29af 9cdc 0800 4600 0028
+        002c 0000 0102 9afa ac10 fd82 e000 0016
+        9404 0000 2200 ea03 0000 0001 0400 0000
+        efff fffa af21 0f51 ce27 0c00 3600 0000
+        3600 0000 0100 5e00 0016 000c 29af 9cdc
+        0800 4600 0028 002d 0000 0102 9af9 ac10
+        fd82 e000 0016 9404 0000 2200 eb03 0000
+    </p>
 
 </div>
 
