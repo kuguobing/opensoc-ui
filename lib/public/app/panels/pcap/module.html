@@ -119,7 +119,7 @@
     </thead>
       <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'">
           <tr ng-click="toggle_details(event.proto[1])" class="pointer">
-            <td bo-text="event.proto[1].$.showname"></td>
+            <td><span class="toggle-arrow">></span> <i class="fa fa-chevron-right"></i>{{event.proto[1].$.showname}}</td>
           </tr>
           <tr ng-if="event.proto[1].details">
             <td>
