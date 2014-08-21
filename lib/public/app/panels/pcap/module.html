@@ -65,13 +65,60 @@
     span, td, th {
         font-size: 13px;
     }
+
+    .main-row {
+        cursor: pointer;
+    }
+
+    .main-row:hover {
+        background-color: #7E7E7E ;
+    }
+
+    .extra-row {
+        background-color: #474747 !important;
+    }
+    ul{
+        list-style-type: none;
+    }
   </style>
 
 
 
 <div class="table-container">
   <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
-    <!-- <thead ng-show="panel.header"> -->
+    <thead>
+      <tr>
+        <th>{{colNames[0]}}</th>
+        <th>{{colNames[1]}}</th>
+        <th>{{colNames[2]}}</th>
+        <th>{{colNames[3]}}</th>
+        <th>{{colNames[4]}}</th>
+      <tr>
+    </thead>
+    <tbody bindonce ng-repeat="info in basicInfo">
+        <tr class="main-row" ng-click="toggleDetail($index)">
+            <td>{{info[0]}}</td>
+            <td>{{info[1]}}</td>
+            <td>{{info[2]}}</td>
+            <td>{{info[3]}}</td>
+            <td>{{info[4]}}</td>
+        </tr>
+    </tbody>
+      <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'" class="extra-row" ng-show="activePosition == $index">
+          <tr bindonce ng-repeat="prot in event.proto" class="main-row">
+            <td bo-text="prot.$.showname"></td>
+            <td ng-click="prot.isVisible = !prot.isVisible">
+              <ul ng-show="prot.isVisible">
+                <li ng-repeat="fieldval in prot.field">
+                    <p>{{fieldval.$.showname}}</p>
+                </li>
+            </ul>
+            </td>
+          </tr>
+
+      </tbody>
+  </table>
+<!--   <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
     <thead>
       <tr>
         <th>No.</th>
@@ -94,7 +141,7 @@
             <td bo-text="event.proto[4].field[1].$.showname"></td>
           </tr>
           <tr ng-if="event.details">
-            <td colspan="4"><!-- Change to colspan of panel.fields.length -->
+            <td colspan="4">
                 <table>
                     <tr ng-repeat="val in event.field">
                         <td ng-click="highlight_text()">{{val.$.name}}</td>
@@ -106,12 +153,34 @@
             </td>
           </tr>
       </tbody>
-  </table>
+  </table> -->
 
 <!-- PCAP Table -->
 <div class="table-container">
+
   <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
     <!-- <thead ng-show="panel.header"> -->
+    <thead bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'" >
+      <tr class="main-row" ng-click="toggleDetail($index)">
+        <th>packetX...src...dest...protocol...length....info</th>
+      </tr>
+    </thead>
+      <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'" class="extra-row" ng-show="activePosition == $index">
+          <tr bindonce ng-repeat="prot in event.proto" class="main-row">
+            <td bo-text="prot.$.showname"></td>
+            <td ng-click="prot.isVisible = !prot.isVisible">
+              <ul ng-show="prot.isVisible">
+                <li ng-repeat="fieldval in prot.field">
+                    <p>{{fieldval.$.showname}}</p>
+                </li>
+            </ul>
+            </td>
+          </tr>
+
+      </tbody>
+  </table>
+
+  <!-- <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
     <thead>
       <tr>
         <th>Levels 1 - 4</th>
@@ -176,7 +245,7 @@
             </td>
           </tr>
       </tbody>
-  </table>
+  </table> -->
 
   <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
     <!-- <thead ng-show="panel.header"> -->
