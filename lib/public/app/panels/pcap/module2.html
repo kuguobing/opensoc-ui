@@ -65,64 +65,14 @@
     span, td, th {
         font-size: 13px;
     }
-
-    .main-row {
-        cursor: pointer;
-    }
-
-    .main-row:hover {
-        background-color: #7E7E7E ;
-    }
-
-    .extra-row {
-        background-color: #474747 !important;
-    }
-    ul{
-        list-style-type: none;
-    }
+    .byte {padding: 6px 5px;}
   </style>
 
 
 
 <div class="table-container">
   <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
-    <thead>
-      <tr>
-        <th>{{colNames[0]}}</th>
-        <th>{{colNames[1]}}</th>
-        <th>{{colNames[2]}}</th>
-        <th>{{colNames[3]}}</th>
-        <th>{{colNames[4]}}</th>
-      <tr>
-    </thead>
-    <tbody bindonce ng-repeat="info in basicInfo">
-        <tr class="main-row" ng-click="toggleDetail($index); highlight_bytes_below(info.$.pos, info.$.size)">
-            <td>{{info[0]}}</td>
-            <td>{{info[1]}}</td>
-            <td>{{info[2]}}</td>
-            <td>{{info[3]}}</td>
-            <td>{{info[4]}}</td>
-        </tr>
-    </tbody>
-      <table class="">
-       <thead></thead>
-      <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'" class="extra-row" ng-show="activePosition == $index">
-          <tr bindonce ng-repeat="prot in event.proto" class="main-row">
-            <td><div ng-click="prot.isVisible = !prot.isVisible">{{prot.$.showname}}</div>
-            <div>
-              <ul ng-show="prot.isVisible">
-                <li ng-repeat="fieldval in prot.field" ng-click="fieldBytes(fieldval)">
-                    <p>{{fieldvalShowname(fieldval)}}</p>
-                </li>
-            </ul>
-            </div>
-            </td>
-          </tr>
-
-      </tbody>
-      </table>
-  </table>
-<!--   <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
+    <!-- <thead ng-show="panel.header"> -->
     <thead>
       <tr>
         <th>No.</th>
@@ -145,7 +95,7 @@
             <td bo-text="event.proto[4].field[1].$.showname"></td>
           </tr>
           <tr ng-if="event.details">
-            <td colspan="4">
+            <td colspan="4"><!-- Change to colspan of panel.fields.length -->
                 <table>
                     <tr ng-repeat="val in event.field">
                         <td ng-click="highlight_text()">{{val.$.name}}</td>
@@ -157,34 +107,12 @@
             </td>
           </tr>
       </tbody>
-  </table> -->
+  </table>
 
 <!-- PCAP Table -->
-<!-- <div class="table-container">
-
+<div class="table-container">
   <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
-
-    <thead bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'" >
-      <tr class="main-row" ng-click="toggleDetail($index)">
-        <th>packetX...src...dest...protocol...length....info</th>
-      </tr>
-    </thead>
-      <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'" class="extra-row" ng-show="activePosition == $index">
-          <tr bindonce ng-repeat="prot in event.proto" class="main-row">
-            <td bo-text="prot.$.showname"></td>
-            <td ng-click="prot.isVisible = !prot.isVisible">
-              <ul ng-show="prot.isVisible">
-                <li ng-repeat="fieldval in prot.field">
-                    <p>{{fieldval.$.showname}}</p>
-                </li>
-            </ul>
-            </td>
-          </tr>
-
-      </tbody>
-  </table> -->
-
-  <!-- <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
+    <!-- <thead ng-show="panel.header"> -->
     <thead>
       <tr>
         <th>Levels 1 - 4</th>
@@ -197,7 +125,7 @@
           <tr ng-if="event.proto[1].details">
             <td>
                 <table>
-                    <tr ng-repeat="val in event.proto[1].field" ng-click="highlight_bytes_below(val.$.pos, val.$.size)">
+                    <tr ng-repeat="val in event.proto[1].field" ng-click="highlight_bytes_below(val.$.pos, val.$.size)" class="byte-group-{{event.proto[3].$.pos}}_{{event.proto[3].$|byte_end}}">
                         <td>{{val.$.showname}}</td>
                         <td>{{val.$.size}}</td>
                         <td>{{val.$.pos}}</td>
@@ -206,13 +134,13 @@
             </td>
           </tr>
 
-          <tr ng-click="toggle_details(event.proto[2])" class="pointer">
+          <tr ng-click="toggle_details(event.proto[2])" class="pointer byte-group-{{event.proto[3].$.pos}}_{{event.proto[3].$|byte_end}}">
             <td bo-text="event.proto[2].$.showname"></td>
           </tr>
           <tr ng-if="event.proto[2].details">
             <td>
                 <table>
-                    <tr ng-repeat="val in event.proto[2].field" ng-click="highlight_bytes_below(val.$.pos, val.$.size)">
+                    <tr ng-repeat="val in event.proto[2].field" ng-click="highlight_bytes_below2(val)">
                         <td>{{val.$.showname}}</td>
                         <td>{{val.$.size}}</td>
                         <td>{{val.$.pos}}</td>
@@ -220,13 +148,13 @@
                 </table>
             </td>
           </tr>
-          <tr ng-click="toggle_details(event.proto[3])" class="pointer">
+          <tr ng-click="toggle_details(event.proto[3])" class="pointer byte-group-{{event.proto[3].$.pos}}_{{event.proto[3].$|byte_end}}">
             <td bo-text="event.proto[3].$.showname"></td>
           </tr>
           <tr ng-if="event.proto[3].details">
             <td>
                 <table>
-                    <tr ng-repeat="val in event.proto[3].field" ng-click="highlight_bytes_below(val.$.pos, val.$.size)">
+                    <tr ng-repeat="val in event.proto[3].field" ng-click="highlight_bytes_below2(val)">
                         <td>{{val.$.showname}}</td>
                         <td>{{val.$.size}}</td>
                         <td>{{val.$.pos}}</td>
@@ -240,7 +168,7 @@
           <tr ng-if="event.proto[4].details">
             <td>
                 <table>
-                    <tr ng-repeat="val in event.proto[4].field" ng-click="highlight_bytes_below(val.$.pos, val.$.size)">
+                    <tr ng-repeat="val in event.proto[4].field" ng-click="highlight_bytes_below2(val)">
                         <td>{{val.$.showname}}</td>
                         <td>{{val.$.size}}</td>
                         <td>{{val.$.pos}}</td>
@@ -249,7 +177,7 @@
             </td>
           </tr>
       </tbody>
-  </table> -->
+  </table>
 
   <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
     <!-- <thead ng-show="panel.header"> -->
@@ -260,7 +188,7 @@
     </thead>
       <tbody>
           <tr>
-            <td><span bindonce ng-repeat="byte in hexData" ng-click="hightlight_bytes(byte.parent)" ng-class="byte.parent" class="byte"><span class="{{byte.parent}} byte">{{byte.byte}}</span> </span></td>
+            <td><span bindonce ng-repeat="byte in hexData" ng-click="hightlight_bytes(byte.parent)" ng-class="byte.parent" class="{{byte.parent}} byte">{{byte.byte}}</span></td>
           </tr>
       </tbody>
   </table>

@@ -1,0 +1,43 @@
+{"index": { "_index": "sourcefire2", "_type": "sourcefire2"}}
+{
+    "enrichment": {
+        "geo": {
+            "ip_dst_addr": {
+                "country": "US",
+                "dmaCode": "623",
+                "city": "Plano",
+                "postalCode": "",
+                "latitude": "33.0198",
+                "locID": "14327",
+                "longitude": "-96.6989"
+            },
+            "ip_src_addr": {}
+        },
+        "host": {
+            "ip_dst_addr": {},
+            "ip_src_addr": {
+                "known_info": {
+                    "asset_value": "important",
+                    "type": "Server",
+                    "local": "YES"
+                }
+            }
+        }
+        }
+    },
+    "alert": {
+        "cluster": "preprod",
+        "source": "sourcefire",
+        "priority": "3"
+    },
+    "message": {
+        "protocol": "tcp",
+        "ip_dst_addr": "72.163.0.129",
+        "original_string": "SFIMS: [Primary Detection Engine (a7213248-6423-11e3-8537-fac6a92b7d9d)][MTD Access Control] Connection Type: Start, User: Unknown, Client: Unknown, Application Protocol: Unknown, Web App: Unknown, Firewall Rule Name: MTD Access Control, Firewall Rule Action: Allow, Firewall Rule Reasons: Unknown, URL Category: Unknown, URL_Reputation: Risk unknown, URL: Unknown, Interface Ingress: s1p1, Interface Egress: N/A, Security Zone Ingress: Unknown, Security Zone Egress: N/A, Security Intelligence Matching IP: None, Security Intelligence Category: None, ",
+        "ip_src_port": "45283",
+        "ip_dst_port": "21",
+        "ip_src_addr": "10.5.200.245",
+        "key": "{TCP} 10.5.200.245:45283 -> 72.163.0.129:21",
+        "timestamp": 1407953552339
+    }
+}
