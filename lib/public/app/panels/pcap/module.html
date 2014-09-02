@@ -80,48 +80,19 @@
     ul{
         list-style-type: none;
     }
+
+    .highlight {
+      background-color: blue;
+    }
+    .newline { clear:both !important;}
+    .padright { margin-right: 16px !important;}
+
   </style>
 
 
 
 <div class="table-container">
-  <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
-    <thead>
-      <tr>
-        <th>{{colNames[0]}}</th>
-        <th>{{colNames[1]}}</th>
-        <th>{{colNames[2]}}</th>
-        <th>{{colNames[3]}}</th>
-        <th>{{colNames[4]}}</th>
-      <tr>
-    </thead>
-    <tbody bindonce ng-repeat="info in basicInfo">
-        <tr class="main-row" ng-click="toggleDetail($index); highlight_bytes_below(info.$.pos, info.$.size)">
-            <td>{{info[0]}}</td>
-            <td>{{info[1]}}</td>
-            <td>{{info[2]}}</td>
-            <td>{{info[3]}}</td>
-            <td>{{info[4]}}</td>
-        </tr>
-    </tbody>
-      <table class="">
-       <thead></thead>
-      <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'" class="extra-row" ng-show="activePosition == $index">
-          <tr bindonce ng-repeat="prot in event.proto" class="main-row">
-            <td><div ng-click="prot.isVisible = !prot.isVisible">{{prot.$.showname}}</div>
-            <div>
-              <ul ng-show="prot.isVisible">
-                <li ng-repeat="fieldval in prot.field" ng-click="fieldBytes(fieldval)">
-                    <p>{{fieldvalShowname(fieldval)}}</p>
-                </li>
-            </ul>
-            </div>
-            </td>
-          </tr>
 
-      </tbody>
-      </table>
-  </table>
 <!--   <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
     <thead>
       <tr>
@@ -251,20 +222,85 @@
       </tbody>
   </table> -->
 
-  <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
-    <!-- <thead ng-show="panel.header"> -->
+
+    <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
     <thead>
       <tr>
-        <th>Hex Bytes</th>
-      </tr>
+<!--         <th>{{colNames[0]}}</th>
+        <th>{{colNames[1]}}</th>
+        <th>{{colNames[2]}}</th>
+        <th>{{colNames[3]}}</th>
+        <th>{{colNames[4]}}</th> -->
+        <td></td>
+      <tr>
     </thead>
-      <tbody>
-          <tr>
-            <td><span bindonce ng-repeat="byte in hexData" ng-click="hightlight_bytes(byte.parent)" ng-class="byte.parent" class="byte"><span class="{{byte.parent}} byte">{{byte.byte}}</span> </span></td>
+    <tbody bindonce ng-repeat="packet in packet_data.pdml.packet">
+<!--         <tr class="main-row" ng-click="toggleDetail($index); highlight_bytes_below(info.$.pos, info.$.size)">
+            <td>{{info[0]}}</td>
+            <td>{{info[1]}}</td>
+            <td>{{info[2]}}</td>
+            <td>{{info[3]}}</td>
+            <td>{{info[4]}}</td>
+        </tr> -->
+        <tr ng-click="$parent.drilldown = packet"><td><span>{{$index}}</span></td><td>{{packet.proto[3].field[10].$.show}}</td>
+<td>{{packet.proto[3].field[14].$.show}}</td><td>{{packet.proto[4].field[0].$.showname}}</td>
+        </tr>
+    </tbody>
+    </table>
+
+      <table class="">
+       <thead></thead>
+      <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'" class="extra-row" ng-show="activePosition == $index">
+          <tr bindonce ng-repeat="prot in event.proto" class="main-row">
+            <td><div ng-click="prot.isVisible = !prot.isVisible">{{prot.$.showname}}</div>
+            <div>
+              <ul ng-show="prot.isVisible">
+                <li ng-repeat="fieldval in prot.field" ng-click="fieldBytes(fieldval)">
+                    <p>{{fieldvalShowname(fieldval)}}</p>
+                </li>
+            </ul>
+            </div>
+            </td>
           </tr>
+
       </tbody>
+      </table>
   </table>
+<!--   <div ng-repeat="packet in packet_data.pdml.packet">
+      <span ng-click="$parent.drilldown = packet">
+        {{$index}}
+      </span>
+    </div> -->
+  
+    <div packet="drilldown"></div>
 </div>
+
+  <script type="text/ng-template" id="packet.html">
+    <div ng-repeat="proto in packet.proto">
+      <span ng-click="expanded = select(proto) || !expanded">
+        {{ showName(proto.$) }}
+      </span>
+
+      <div ng-if="expanded" style="margin-left:50px">
+        <div ng-repeat="f in proto.field">
+          <span ng-click="select_field(f)">
+            {{ showName(f.$) }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div hex-bytes bytes="packet.hexPacket" selected="selectedBytes"></div>
+  </script>
+
+  <script type="text/ng-template" id="hexBytes.html">
+    Position: {{selected.pos}}<br/>
+    Size: {{selected.size}}<br/><br/>
+    <span ng-repeat="b in bytes track by $index">
+      <span ng-class="{highlight: selected.pos <= $index && (selected.pos|num)+(selected.size|num) > $index, newline:$index%16==0}" ng-click="selectByte($index)" style="float:left; padding:4px;">
+        {{ b }}
+      </span>
+    </span>
+  </script>
 
   <!--<p ng-style="panel.style" ng-bind-html-unsafe="panel.content | striphtml | newlines"></p>-->
   <markdown ng-show="ready && panel.mode == 'markdown'">
