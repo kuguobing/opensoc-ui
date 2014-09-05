@@ -136,26 +136,27 @@
   <script type="text/ng-template" id="packet.html">
     <div ng-repeat="proto in packet.proto">
       <span ng-class="{'icon-chevron-down': expanded, 'icon-chevron-right': !expanded}" ng-click="expanded = select(proto) || !expanded"></span>
-      <span ng-class="{highlight: proto.$.name === selectedData}" ng-click="expanded = select(proto) || !expanded">
-        {{ showName(proto) }}
+      <span ng-class="{highlight: selectedData.uid === proto.$.uid}" ng-click="expanded = select(proto) || !expanded">
+        {{ proto.$.showname }}
       </span>
 
       <div ng-if="expanded" style="margin-left:50px">
         <div ng-repeat="f in proto.field">
-          <span ng-class="{highlight: f.$ === selectedData}" ng-click="select_field(f)">
+          <span ng-class="{highlight: $parent.selectedData.uid === f.$.uid}" ng-click="select_field(f)">
             {{ f.$.showname }}
           </span>
         </div>
       </div>
     </div>
-    <div hex-bytes bytes="packet.hexPacket" selected="selectedBytes"></div>
+    {{ selectedData }}
+    <div hex-bytes bytes="packet.hexPacket" selected-bytes="selectedBytes" selected-data="selectedData"></div>
   </script>
 
   <script type="text/ng-template" id="hexBytes.html">
-    Position: {{selected.pos}}<br/>
-    Size: {{selected.size}}<br/><br/>
+    Position: {{selectedBytes.pos}}<br/>
+    Size: {{selectedBytes.size}}<br/><br/>
     <span ng-repeat="b in bytes track by $index">
-      <span ng-class="{highlight: selected.pos <= $index && (selected.pos|num)+(selected.size|num) > $index, newline:$index%16==0, padright:($index+8)%16==0}" ng-click="selectByte($index)" style="float:left; padding:4px;">
+      <span class="byte" ng-class="{highlight: selectedBytes.pos <= $index && (selectedBytes.pos|num)+(selectedBytes.size|num) > $index, newline:$index%16==0, padright:($index+8)%16==0}" ng-click="selectByte($index)" style="float:left; padding:4px;">
         {{ b }}
       </span>
     </span>
