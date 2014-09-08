@@ -85,7 +85,7 @@
       background-color: blue;
     }
     .newline { clear:both !important;}
-    .padright { margin-right: 16px !important;}
+    .padright { margin-left: 16px !important;}
 
   </style>
 
@@ -93,166 +93,30 @@
 
 <div class="table-container">
 
-<!--   <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
-    <thead>
-      <tr>
-        <th>No.</th>
-        <th>Time</th>
-        <th>Source</th>
-        <th>Destination</th>
-        <th>Protocol</th>
-        <th>Length</th>
-        <th>Info</th>
-      </tr>
-    </thead>
-      <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'">
-          <tr ng-click="toggle_details(event)" class="pointer">
-            <td bo-text="event.proto[0].field[0].$.value"></td>
-            <td bo-text="event.proto[1].field[3].$.show"></td>
-            <td bo-text="event.proto[3].field[10].$.show"></td>
-            <td bo-text="event.proto[3].field[15].$.show"></td>
-            <td><span bo-text="event.proto[4].$.name" class="uppercase"></span>v<span bo-text="event.proto[4].field[0].$.show"></span></td>
-            <td bo-text="event.proto[0].field[1].$.show"></td>
-            <td bo-text="event.proto[4].field[1].$.showname"></td>
-          </tr>
-          <tr ng-if="event.details">
-            <td colspan="4">
-                <table>
-                    <tr ng-repeat="val in event.field">
-                        <td ng-click="highlight_text()">{{val.$.name}}</td>
-                        <td>{{val.$.showname}}</td>
-                        <td>{{val.$.size}}</td>
-                        <td>{{val.$.pos}}</td>
-                    </tr>
-                </table>
-            </td>
-          </tr>
-      </tbody>
-  </table> -->
-
-<!-- PCAP Table -->
-<!-- <div class="table-container">
-
-  <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
-
-    <thead bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'" >
-      <tr class="main-row" ng-click="toggleDetail($index)">
-        <th>packetX...src...dest...protocol...length....info</th>
-      </tr>
-    </thead>
-      <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'" class="extra-row" ng-show="activePosition == $index">
-          <tr bindonce ng-repeat="prot in event.proto" class="main-row">
-            <td bo-text="prot.$.showname"></td>
-            <td ng-click="prot.isVisible = !prot.isVisible">
-              <ul ng-show="prot.isVisible">
-                <li ng-repeat="fieldval in prot.field">
-                    <p>{{fieldval.$.showname}}</p>
-                </li>
-            </ul>
-            </td>
-          </tr>
-
-      </tbody>
-  </table> -->
-
-  <!-- <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
-    <thead>
-      <tr>
-        <th>Levels 1 - 4</th>
-      </tr>
-    </thead>
-      <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'">
-          <tr ng-click="toggle_details(event.proto[1])" class="pointer">
-            <td><span class="toggle-arrow">></span> <i class="fa fa-chevron-right"></i>{{event.proto[1].$.showname}}</td>
-          </tr>
-          <tr ng-if="event.proto[1].details">
-            <td>
-                <table>
-                    <tr ng-repeat="val in event.proto[1].field" ng-click="highlight_bytes_below(val.$.pos, val.$.size)">
-                        <td>{{val.$.showname}}</td>
-                        <td>{{val.$.size}}</td>
-                        <td>{{val.$.pos}}</td>
-                    </tr>
-                </table>
-            </td>
-          </tr>
-
-          <tr ng-click="toggle_details(event.proto[2])" class="pointer">
-            <td bo-text="event.proto[2].$.showname"></td>
-          </tr>
-          <tr ng-if="event.proto[2].details">
-            <td>
-                <table>
-                    <tr ng-repeat="val in event.proto[2].field" ng-click="highlight_bytes_below(val.$.pos, val.$.size)">
-                        <td>{{val.$.showname}}</td>
-                        <td>{{val.$.size}}</td>
-                        <td>{{val.$.pos}}</td>
-                    </tr>
-                </table>
-            </td>
-          </tr>
-          <tr ng-click="toggle_details(event.proto[3])" class="pointer">
-            <td bo-text="event.proto[3].$.showname"></td>
-          </tr>
-          <tr ng-if="event.proto[3].details">
-            <td>
-                <table>
-                    <tr ng-repeat="val in event.proto[3].field" ng-click="highlight_bytes_below(val.$.pos, val.$.size)">
-                        <td>{{val.$.showname}}</td>
-                        <td>{{val.$.size}}</td>
-                        <td>{{val.$.pos}}</td>
-                    </tr>
-                </table>
-            </td>
-          </tr>
-          <tr ng-click="toggle_details(event.proto[4])" class="pointer">
-            <td bo-text="event.proto[4].$.showname"></td>
-          </tr>
-          <tr ng-if="event.proto[4].details">
-            <td>
-                <table>
-                    <tr ng-repeat="val in event.proto[4].field" ng-click="highlight_bytes_below(val.$.pos, val.$.size)">
-                        <td>{{val.$.showname}}</td>
-                        <td>{{val.$.size}}</td>
-                        <td>{{val.$.pos}}</td>
-                    </tr>
-                </table>
-            </td>
-          </tr>
-      </tbody>
-  </table> -->
-
-
     <table class="table table-bordered table-condensed table-details table-striped" ng-style="panel.style">
     <thead>
       <tr>
-<!--         <th>{{colNames[0]}}</th>
-        <th>{{colNames[1]}}</th>
-        <th>{{colNames[2]}}</th>
-        <th>{{colNames[3]}}</th>
-        <th>{{colNames[4]}}</th> -->
-        <td></td>
+        <td>Packet No.</td>
+        <td>Source</td>
+        <td>Destination</td>
+        <td>Info</td>
       <tr>
     </thead>
     <tbody bindonce ng-repeat="packet in packet_data.pdml.packet">
-<!--         <tr class="main-row" ng-click="toggleDetail($index); highlight_bytes_below(info.$.pos, info.$.size)">
-            <td>{{info[0]}}</td>
-            <td>{{info[1]}}</td>
-            <td>{{info[2]}}</td>
-            <td>{{info[3]}}</td>
-            <td>{{info[4]}}</td>
-        </tr> -->
-        <tr ng-click="$parent.drilldown = packet"><td><span>{{$index}}</span></td><td>{{packet.proto[3].field[10].$.show}}</td>
-<td>{{packet.proto[3].field[14].$.show}}</td><td>{{packet.proto[4].field[0].$.showname}}</td>
+        <tr ng-click="$parent.drilldown = packet; setSelected($index);" ng-class="{highlight : $index === selectedValue}">
+          <td><span>{{$index}}</span></td>
+          <td>{{packet.proto[3].field[10].$.show}}</td>
+          <td>{{packet.proto[3].field[14].$.show}}</td>
+          <td>{{packet.proto[4].field[0].$.showname}}</td>
         </tr>
     </tbody>
     </table>
 
       <table class="">
        <thead></thead>
-      <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'" class="extra-row" ng-show="activePosition == $index">
+        <tbody bindonce ng-repeat="event in data| slice:panel.offset:panel.offset+panel.size" ng-class-odd="'odd'" class="extra-row" ng-show="activePosition == $index">
           <tr bindonce ng-repeat="prot in event.proto" class="main-row">
-            <td><div ng-click="prot.isVisible = !prot.isVisible">{{prot.$.showname}}</div>
+            <td><div ng-click="prot.isVisible = !prot.isVisible">{{protShowname(prot.$)}}</div>
             <div>
               <ul ng-show="prot.isVisible">
                 <li ng-repeat="fieldval in prot.field" ng-click="fieldBytes(fieldval)">
@@ -262,44 +126,45 @@
             </div>
             </td>
           </tr>
-
-      </tbody>
+       </tbody>
       </table>
-  </table>
-<!--   <div ng-repeat="packet in packet_data.pdml.packet">
-      <span ng-click="$parent.drilldown = packet">
-        {{$index}}
-      </span>
-    </div> -->
   
     <div packet="drilldown"></div>
 </div>
 
   <script type="text/ng-template" id="packet.html">
     <div ng-repeat="proto in packet.proto">
-      <span ng-click="expanded = select(proto) || !expanded">
-        {{ showName(proto.$) }}
+      <span ng-class="{'icon-chevron-down': proto.expanded, 'icon-chevron-right': !proto.expanded}" ng-click="proto.expanded = select(proto) || !proto.expanded"></span>
+      <span ng-class="{highlight: (selectedData.uid === proto.$.uid) || (selectedData2 === proto.$.name )}" ng-click="proto.expanded = select(proto) || !proto.expanded">
+        {{ proto.$.showname }}
       </span>
 
-      <div ng-if="expanded" style="margin-left:50px">
+      <div ng-if="proto.expanded" style="margin-left:50px">
         <div ng-repeat="f in proto.field">
-          <span ng-click="select_field(f)">
-            {{ showName(f.$) }}
+          <span ng-class="{highlight: ($parent.selectedData.uid === f.$.uid) || (selectedData2 === f.$)}" ng-click="select_field(f)">
+            {{ f.$.showname }}
           </span>
         </div>
       </div>
     </div>
-    <div hex-bytes bytes="packet.hexPacket" selected="selectedBytes"></div>
+    <div hex-bytes bytes="packet.hexPacket" selected-bytes="selectedBytes" selected-data="selectedData"></div>
   </script>
 
   <script type="text/ng-template" id="hexBytes.html">
-    Position: {{selected.pos}}<br/>
-    Size: {{selected.size}}<br/><br/>
+    <br/>
     <span ng-repeat="b in bytes track by $index">
-      <span ng-class="{highlight: selected.pos <= $index && (selected.pos|num)+(selected.size|num) > $index, newline:$index%16==0}" ng-click="selectByte($index)" style="float:left; padding:4px;">
+      <span class="byte" ng-class="{highlight: selectedBytes.pos <= $index && (selectedBytes.pos|num)+(selectedBytes.size|num) > $index, newline:$index%16==0, padright:($index+8)%16==0}" ng-click="selectByte($index)" style="float:left; padding:4px;">
         {{ b }}
       </span>
     </span>
+    <div style="clear:left">
+    <br/>
+    Position: {{selectedBytes.pos}}<br/>
+    Size: {{selectedBytes.size}}<br/>
+    Selected Field: {{selectedBytes.showname}} ({{selectedBytes.name}})</br>
+    selectedBytes :: {{$parent.selectedBytes}}</br>
+    selectedBytes.expand :: {{$parent.selectedBytes.expanded}}
+    </div>
   </script>
 
   <!--<p ng-style="panel.style" ng-bind-html-unsafe="panel.content | striphtml | newlines"></p>-->
