@@ -174,38 +174,34 @@
       <h6>Filter PCAP Results</h6>
         <form action="">
           <div class="editor-option">
-              <label class="small">Key</label><input type="text" class="input-large" ng-model=''></input>
+              <label class="small">Source Port</label><input type="text" class="input-large" ng-model="dashboard.current.pcap_settings.source_port"></input>
           </div>
           <div class="editor-option">
-              <label class="small">Start Time</label><input type="text" class="input-large" ng-model=''></input>
+              <label class="small">Destination Port</label><input type="text" class="input-large"></input>
           </div>
           <div class="editor-option">
-              <label class="small">End Time</label><input type="text" class="input-large" ng-model=''></input>
+              <label class="small">Source IP</label><input type="text" class="input-large"></input>
+          </div>
+          <div class="editor-option">
+              <label class="small">Destination IP</label><input type="text" class="input-large"></input>
+          </div>
+          <div class="editor-option">
+              <label class="small">Protocol</label><input type="text" class="input-large"></input>
           </div>
 
           <div class="row-fluid">
             <a href data-toggle="collapse" >Advanced</a>
             <div class="panel-collapse collapse">
               <div class="editor-option">
-                  <label class="small">Source IP</label>
-              </div>
-              <div class="editor-option">
-                  <label class="small">Destination IP</label>
-              </div>
-              <div class="editor-option">
-                  <label class="small">Protocol</label>
-              </div>
-              <div class="editor-option">
-                  <label class="small">Source Port</label>
-              </div>
-              <div class="editor-option">
-                  <label class="small">Destination Port</label>
-              </div>
-              <div class="editor-option">
-                  <label class="small">Include Reverse Traffic</label><input type="checkbox" ng-model="" ng-checked="" />
+                  <label class="small">Include Reverse Traffic</label><input type="checkbox" ng-checked="" />
               </div>
             </div>
           </div>
+
+          <div class="edit-option">
+            <button type="button" class="btn btn-success" ng-click="get_data(dashboard)">Search</button>
+          </div>
+
         </form>
     </div>
   </script>
